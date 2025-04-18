@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button';
 import React from 'react';
 import { FaGithub } from "react-icons/fa";
 import { FaHandsHelping } from "react-icons/fa";
-import { Link } from 'react-router-dom';
 import { buttonVariants } from "@/components/ui/button"; // update path if needed
 
 const Footer = () => {
