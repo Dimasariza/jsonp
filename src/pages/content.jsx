@@ -39,7 +39,7 @@ const PageContent = () => {
 
     return (
         <Tabs defaultValue={tabs[0].name} className="w-full"> 
-            <TabsList className="grid w-full grid-cols-5">
+            <TabsList className="w-full flex gap-x-3">
                 {tabs.map((item, key) => (    
                     <TabsTrigger key={key} value={item.name}>{item.name}</TabsTrigger>
                 ))}
