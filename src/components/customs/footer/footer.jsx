@@ -7,8 +7,8 @@ const Footer = () => {
     return (
         <footer>
             <div className="flex items-center justify-between">
-                <Button variant="outline" color="red"><FaHandsHelping />View on Github</Button>
-                <Button variant="outline" color="red"><FaGithub />Contribute</Button>
+                <Button variant="outline" color="red"><FaGithub />View on Github</Button>
+                <Button variant="outline" color="red"><FaHandsHelping />Contribute</Button>
             </div>
         </footer>
     );
