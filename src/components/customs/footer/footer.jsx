@@ -8,10 +8,10 @@ const Footer = () => {
     return (
         <footer>
             <div className="flex items-center justify-center gap-5">
-                <a href="https://github.com/shravan20/jsonp" target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "outline" })}>
+                <a href="https://github.com/shravan20/jsonp" target="_blank" rel="noopener noreferrer" className={`${buttonVariants({ variant: "default" })} !text-white`}>
                     <FaGithub />View on Github
                 </a>
-                <a href="https://github.com/shravan20/jsonp/blob/main/README.md" target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "outline" })}>
+                <a href="https://github.com/shravan20/jsonp/blob/main/README.md" target="_blank" rel="noopener noreferrer" className={`${buttonVariants({ variant: "secondary" })} !text-white`}>
                     <FaHandsHelping />Contribute
                 </a>
             </div>

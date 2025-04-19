@@ -7,7 +7,6 @@ import React from 'react';
 const JSONFormatter = () => {
     return (
         <div>
-            <h1>JSON Formatter</h1>
             <Jsontabs />
             <Textarea placeholder="Enter JSON here..." />
             <div className='flex gap-2'>

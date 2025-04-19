@@ -4,8 +4,7 @@ import React from 'react';
 const Jsontabs = () => {
     return (
         <div>
-            JSON Tabs
-            <Button>+Add Tab</Button>
+            <Button variant="primary">+Add Tab</Button>
         </div>
     );
 }
