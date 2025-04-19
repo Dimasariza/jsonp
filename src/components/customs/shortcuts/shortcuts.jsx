@@ -1,11 +1,12 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@components/ui/button"
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
+  DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@components/ui/dialog"
 
 const Shortcuts = () => {
   return (
@@ -15,6 +16,8 @@ const Shortcuts = () => {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px] !text-black">
             <DialogHeader>
+                <DialogTitle>
+                </DialogTitle>
                 <DialogDescription>
                     Keyboard Shortcuts
                 </DialogDescription>

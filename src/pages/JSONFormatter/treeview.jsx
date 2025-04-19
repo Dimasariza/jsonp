@@ -27,23 +27,6 @@ const TreeNode = (key, node) => {
                 </span>
             }
 
-            {/* <div className='tree-children ml-[20px]'>
-                <div className="tree-node relative ml-[20px]">
-                    <span className="tree-key type-array expanded collapsed" tabIndex="0">
-                        <span>games</span>
-                        <span className="node-info">[3]</span>
-                    </span>
-                    <div className='tree-children ml-[20px]'>
-                        <div className="tree-node relative ml-[20px]">
-                            <span className="tree-key type-array expanded collapsed" tabIndex="0">
-                                <span>games</span>
-                                <span className="node-info">[2]</span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
-
             {
                 typeof node === "object" && Object.entries(node).map(([key, value], index) => (
                     <div key={index} className='tree-children ml-[20px]'>
