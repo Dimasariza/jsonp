@@ -2,12 +2,14 @@ import Jsontabs from '@components/customs/json-tabs/jsontabs';
 import { Button } from '@components/ui/button';
 import { Input } from '@components/ui/input';
 import { Textarea } from '@components/ui/textarea';
-import React from 'react';
+import { useJSONFormatterStorage } from '@hooks/useJSONFormatterStorage';
 
 const JSONFormatter = () => {
+    const [tabs, setTabs] = useJSONFormatterStorage('tabs', []);
+
     return (
         <div>
-            <Jsontabs />
+            <Jsontabs tabs={tabs} setTabs={setTabs} />
             <Textarea placeholder="Enter JSON here..." />
             <div className='flex gap-2'>
                 <Input type="email" placeholder="Search keys or values..." />

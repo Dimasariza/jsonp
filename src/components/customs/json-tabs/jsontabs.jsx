@@ -1,11 +1,9 @@
 import { Button } from '@components/ui/button';
 import { Popover, PopoverTrigger, PopoverContent } from '@components/ui/popover';
 import React, { useState } from 'react';
-import { useTabsStorage } from '@hooks/useTabsStorage';
 
-const Jsontabs = () => {
+const Jsontabs = ({tabs = [], setTabs}) => {
     const [open, setOpen] = useState(false);
-    const [tabs, setTabs] = useTabsStorage('tabs', []);
 
     return (    
         <div className='flex gap-2'>
