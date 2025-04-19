@@ -1,5 +1,6 @@
 import Jsontabs from "@/components/customs/json-tabs/jsontabs";
 import { useJSONCompareStorage } from "@/hooks/useJSONCompareStorage";
+
 const JSONCompare = () => {
     const [tabs, setTabs] = useJSONCompareStorage('tabs', []);
     return (

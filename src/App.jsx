@@ -5,11 +5,13 @@ import PageContent from '@pages/content'
 
 function App() {
   return (
-    <>
-      <Header />
-      <PageContent />
-      <Footer />
-    </>
+    <div className='flex flex-col w-full justify-center items-center'>
+      <div className='flex flex-col h-full w-3/4 justify-center'>
+        <Header />
+        <PageContent />
+        <Footer />
+      </div>
+    </div>
   )
 }
 

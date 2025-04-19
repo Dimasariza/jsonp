@@ -1,3 +1,4 @@
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@components/ui/alert-dialog';
 import { Button } from '@components/ui/button';
 import { Popover, PopoverTrigger, PopoverContent } from '@components/ui/popover';
 import React, { useState } from 'react';
@@ -12,7 +13,7 @@ const Jsontabs = ({tabs = [], setTabs}) => {
                     <PopoverTrigger asChild>
                         <Button 
                             variant="primary" 
-                            className='flex items-center justify-between' 
+                            className='flex items-center justify-between'  
                             onDoubleClick={() => setOpen(true)}
                         >
                             {tab.name}
@@ -22,10 +23,24 @@ const Jsontabs = ({tabs = [], setTabs}) => {
                                 value={tab.color} 
                                 onChange={(e) => setTabs(tabs.map((t, i) => i === index ? {...t, color: e.target.value} : t))}
                             />
-                            <span 
-                                className='ml-2 cursor-pointer' 
-                                onClick={() => setTabs(tabs.filter((_, i) => i !== index))}
-                            >x</span>
+                            <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                    <span className='text-red-500'>x</span>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent className='!text-black'>
+                                    <AlertDialogHeader>
+                                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                        This action cannot be undone. This will permanently delete your
+                                        account and remove your data from our servers.
+                                    </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                        <AlertDialogFooter>
+                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                            <AlertDialogAction onClick={() => setTabs(tabs.filter((_, i) => i !== index))}>Continue</AlertDialogAction>
+                                        </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
                         </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-64" align="start" onInteractOutside={(e) => setOpen(false)}>
