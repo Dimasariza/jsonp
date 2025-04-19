@@ -1,10 +1,45 @@
-import { Button } from '@/components/ui/button';
-import React from 'react';
+import { Button } from '@components/ui/button';
+import { Popover, PopoverTrigger, PopoverContent } from '@components/ui/popover';
+import React, { useState } from 'react';
 
 const Jsontabs = () => {
-    return (
-        <div>
-            <Button variant="primary">+Add Tab</Button>
+    const [tabs, setTabs] = useState([]);
+    const [open, setOpen] = useState(false);
+
+    return (    
+        <div className='flex gap-2'>
+            {tabs.map((tab, index) => (
+                <Popover open={open}  key={index}>
+                    <PopoverTrigger asChild>
+                        <Button 
+                            variant="primary" 
+                            className='flex items-center justify-between' 
+                            onDoubleClick={() => setOpen(true)}
+                        >
+                            {tab.name}
+                            <input 
+                                type="color" 
+                                className='border-none outline-none size-[20px] cursor-pointer' 
+                                value={tab.color} 
+                                onChange={(e) => setTabs(tabs.map((t, i) => i === index ? {...t, color: e.target.value} : t))}
+                            />
+                            <span 
+                                className='ml-2 cursor-pointer' 
+                                onClick={() => setTabs(tabs.filter((_, i) => i !== index))}
+                            >X</span>
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-64" align="start" onInteractOutside={(e) => setOpen(false)}>
+                        <input 
+                            type="text" 
+                            className='w-full' 
+                            value={tab.name} 
+                            onChange={(e) => setTabs(tabs.map((t, i) => i === index ? {...t, name: e.target.value} : t))}
+                        />
+                    </PopoverContent>
+                </Popover>
+            ))}
+            <Button variant="primary" onClick={() => setTabs([...tabs, {name: `Tab ${tabs.length + 1}`, color: "#e0e0e0"}])}>+Add Tab</Button>
         </div>
     );
 }
