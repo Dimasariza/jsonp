@@ -1,12 +1,11 @@
 import { Button } from '@components/ui/button';
 import React from 'react';
 import './treeview.css';
-import { isValidJSON, isValidObject, nodeFormat } from '@/utils/jsonValidation';
+import { isValidJSON, isValidObject, nodeFormat } from '@utils/jsonValidation';
+import { toast } from "sonner"
 
 const TreeNode = (key, node) => {
     const length = isValidObject(node) ? Object.keys(node).length : 0;
-
-    console.log("Crate Tree View")
 
     return (
         <div className='tree-node relative ml-[20px]'>  
@@ -43,6 +42,14 @@ const TreeNode = (key, node) => {
 const FormatterTreeview = ({value}) => {
     const json = isValidJSON(value);
 
+    const handleCopy = () => {
+        navigator.clipboard.writeText(value);
+        toast.success("Copied to clipboard", {
+            description: "Your JSON data has been copied to your clipboard",
+            duration: 2000,
+        })
+    }
+
     return (
         <div className='p-3'>
             <pre className="min-h-[2rem]">
@@ -50,7 +57,7 @@ const FormatterTreeview = ({value}) => {
                     { TreeNode("", json) }
                 </div>
             </pre>
-            <Button onClick={() => navigator.clipboard.writeText(value)}>Copy JSON</Button>
+            <Button onClick={handleCopy}>Copy JSON</Button>
         </div>
     );
 }

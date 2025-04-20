@@ -5,18 +5,32 @@ import { Popover, PopoverTrigger, PopoverContent } from '@components/ui/popover'
 import React, { useState } from 'react';
 
 const Jsontabs = ({tabs = [], setTabs, setActiveTab}) => {
-    const [openPopover, setOpenPopover] = useState(false);
+    const [openPopover, setOpenPopover] = useState(tabs.map(() => false));
+
+    const handleClick = (e, tab) => {
+        e.stopPropagation();
+        e.preventDefault();
+        setActiveTab(tab);
+        console.log("click")
+    }
+
+    const handleDoubleClick = (e, index) => {
+        e.stopPropagation();
+        e.preventDefault();
+        setOpenPopover(tabs.map((_, i) => i === index ? true : false));
+        console.log("double click")
+    }
 
     return (    
         <div className='flex gap-2'>
             {tabs.map((tab, index) => (
-                <Popover open={openPopover}  key={index}>
+                <Popover open={openPopover[index]} key={index}>
                     <PopoverTrigger asChild>
                         <Button 
                             variant="primary" 
                             className='flex items-center justify-between'  
-                            onDoubleClick={() => setOpenPopover(true)}
-                            onClick={() => setActiveTab(tab)}
+                            onDoubleClick={(e) => handleDoubleClick(e, index)}
+                            onClick={(e) => handleClick(e, tab)}
                         >
                             {tab.name}
                             <input 

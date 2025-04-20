@@ -10,7 +10,6 @@ import FormatterTreeview from './treeview';
 import { updateFormatterPreview } from '@utils/updateFormatterPreview';
 import { downloadFormatterJSON, uploadFormatterJSON } from '@utils/JSONFileUtils';
 import { useGlobalState } from '@hooks/useGlobalState';
-import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import { createNewTab } from '@/utils/crereteNewTab';
 
@@ -68,15 +67,10 @@ const JSONFormatter = () => {
         json,
         errorJson,
         setFormatterJSON,
-        previewMenu
-    } = useJSONCompare({previewMenuTabs, tabs});
+        previewMenu,
+    } = useJSONCompare({previewMenuTabs, tabs, setPreviewValue});
 
-    useEffect(() => {
-        const t = tabs.find(tab => tab.id == activeTab.id);
-        setPreviewValue(t.inputValue);
-    }, [activeTab]);
-
-    const setPreviewValue = (value) => {
+    function setPreviewValue (value) {
         const formatter = updateFormatterPreview(value);
         setFormatterJSON(formatter);
         if(formatter.errorJson.length > 0) {
@@ -87,9 +81,8 @@ const JSONFormatter = () => {
         return formatter;
     }
 
-    const onHandleChange = (e) => {
+    const onHandleChange = (value) => {
         setTabs((prev) => {
-            const value = e.target.value;
             const formatter = setPreviewValue(value);
             return prev.map(tab => tab.id == activeTab.id ? {...tab, inputValue: formatter.json} : tab)
         });
@@ -108,6 +101,7 @@ const JSONFormatter = () => {
             loading: 'Loading...',
             success: (data) => {
                 setPreviewValue(data);
+                onHandleChange(data);
                 return `JSON file uploaded successfully`;
             },
             error: 'Error uploading JSON file',
@@ -129,14 +123,13 @@ const JSONFormatter = () => {
 
     }
     
-    
     return (
         <div>
             <Jsontabs tabs={tabs} setTabs={setTabs} setActiveTab={setActiveTab} />
             {
                 tabs.length > 0 &&
                 <div>
-                    <Textarea placeholder="Enter JSON here..." onChange={onHandleChange} value={json}/>
+                    <Textarea placeholder="Enter JSON here..." onChange={(e) => onHandleChange(e.target.value)} value={json}/>
                     <div className='flex gap-2'>
                         <Input type="email" placeholder="Search keys or values..." />
                         <Button>Search</Button>
