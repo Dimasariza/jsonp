@@ -6,6 +6,8 @@ import { isValidJSON, isValidObject, nodeFormat } from '@/utils/jsonValidation';
 const TreeNode = (key, node) => {
     const length = isValidObject(node) ? Object.keys(node).length : 0;
 
+    console.log("Crate Tree View")
+
     return (
         <div className='tree-node relative ml-[20px]'>  
             {

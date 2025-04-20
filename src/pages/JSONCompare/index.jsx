@@ -2,11 +2,11 @@ import { updateFormatterPreview } from "@/utils/updateFormatterPreview";
 import Jsontabs from "@components/customs/json-tabs/jsontabs";
 import { Button } from "@components/ui/button";
 import { Textarea } from "@components/ui/textarea";
-import { useJSONCompareStorage } from "@hooks/useJSONCompareStorage";
+import { useJSONCompare } from "@hooks/useJSONCompare";
 import { useState } from "react";
 
 const JSONCompare = () => {
-    const [tabs, setTabs] = useJSONCompareStorage('tabs', []);
+    const [tabs, setTabs] = useJSONCompare('tabs', []);
 
     const [leftJSON, setLeftJSON] = useState('');
     const [rightJSON, setRightJSON] = useState('');

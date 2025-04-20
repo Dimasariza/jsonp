@@ -1,15 +1,15 @@
-export const updateFormatterPreview = (value, error = "") => {
+export const updateFormatterPreview = (json, errorJson = "") => {
     try {
-        const parsed = JSON.parse(value);
-        value = JSON.stringify(parsed, null, 2);
-        error = "";
+        const parsed = JSON.parse(json);
+        json = JSON.stringify(parsed, null, 2);
+        errorJson = "";
     }       
     catch (e) {
-        error = e.message;
+        errorJson = e.message;
     }
 
     return {
-        value,
-        error
+        json,
+        errorJson
     };
 }

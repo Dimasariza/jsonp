@@ -1,20 +1,22 @@
+import { createNewTab } from '@/utils/crereteNewTab';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@components/ui/alert-dialog';
 import { Button } from '@components/ui/button';
 import { Popover, PopoverTrigger, PopoverContent } from '@components/ui/popover';
 import React, { useState } from 'react';
 
-const Jsontabs = ({tabs = [], setTabs}) => {
-    const [open, setOpen] = useState(false);
+const Jsontabs = ({tabs = [], setTabs, setActiveTab}) => {
+    const [openPopover, setOpenPopover] = useState(false);
 
     return (    
         <div className='flex gap-2'>
             {tabs.map((tab, index) => (
-                <Popover open={open}  key={index}>
+                <Popover open={openPopover}  key={index}>
                     <PopoverTrigger asChild>
                         <Button 
                             variant="primary" 
                             className='flex items-center justify-between'  
-                            onDoubleClick={() => setOpen(true)}
+                            onDoubleClick={() => setOpenPopover(true)}
+                            onClick={() => setActiveTab(tab)}
                         >
                             {tab.name}
                             <input 
@@ -43,7 +45,7 @@ const Jsontabs = ({tabs = [], setTabs}) => {
                             </AlertDialog>
                         </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-64" align="start" onInteractOutside={(e) => setOpen(false)}>
+                    <PopoverContent className="w-64" align="start" onInteractOutside={(e) => setOpenPopover(false)}>
                         <input 
                             type="text" 
                             className='w-full' 
@@ -53,7 +55,7 @@ const Jsontabs = ({tabs = [], setTabs}) => {
                     </PopoverContent>
                 </Popover>
             ))}
-            <Button variant="primary" onClick={() => setTabs([...tabs, {name: `Tab ${tabs.length + 1}`, color: "#e0e0e0"}])}>+Add Tab</Button>
+            <Button variant="primary" onClick={() => setTabs([...tabs, createNewTab(`Tab ${tabs.length + 1}`)])}>+Add Tab</Button>
         </div>
     );
 }

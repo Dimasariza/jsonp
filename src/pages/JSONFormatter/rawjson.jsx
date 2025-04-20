@@ -8,10 +8,6 @@ const FormatterRawjson = ({value}) => {
         toast.success("Copied to clipboard", {
             description: "Your JSON data has been copied to your clipboard",
             duration: 2000,
-            // action: {
-            //   label: "Undo",
-            //   onClick: () => console.log("Undo"),
-            // },
         })
     }
 

@@ -1,0 +1,19 @@
+{
+  "name": "Roganda",
+  "age": null,
+  "blood": [
+    "B",
+    "C"
+  ],
+  "games": [
+    "COD",
+    "PB",
+    "PVZ",
+    null
+  ],
+  "test": {
+    "test1": {
+      "test": null
+    }
+  }
+}

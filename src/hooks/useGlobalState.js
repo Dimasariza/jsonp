@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
-export function useJSONCompareStorage(key, defaultValue) {
-  key = 'json-compare-' + key;
+export function useGlobalState(key, defaultValue) {
   const [value, setValue] = useState(() => {
       const saved = localStorage.getItem(key);
       return saved !== null ? JSON.parse(saved) : defaultValue;

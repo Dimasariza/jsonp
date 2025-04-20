@@ -11,7 +11,7 @@ function App() {
         <Header />
         <PageContent />
         <Footer />
-        <Toaster />
+        <Toaster duration={2000} closeButton richColors expand={false} />
       </div>
     </div>
   )
