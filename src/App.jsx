@@ -2,6 +2,7 @@ import './App.css'
 import Header from '@components/customs/header/header'
 import Footer from '@components/customs/footer/footer'
 import PageContent from '@pages/content'
+import { Toaster } from "@/components/ui/sonner"
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Header />
         <PageContent />
         <Footer />
+        <Toaster />
       </div>
     </div>
   )

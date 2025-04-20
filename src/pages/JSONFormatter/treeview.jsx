@@ -1,34 +1,34 @@
 import { Button } from '@components/ui/button';
 import React from 'react';
 import './treeview.css';
-import { isValidJSON } from '@/utils/jsonValidation';
+import { isValidJSON, isValidObject, nodeFormat } from '@/utils/jsonValidation';
 
 const TreeNode = (key, node) => {
-    const length = typeof node === "object" ? Object.keys(node).length : 0;
+    const length = isValidObject(node) ? Object.keys(node).length : 0;
 
     return (
         <div className='tree-node relative ml-[20px]'>  
             {
-                typeof node !== "object" && 
+                (typeof node !== "object" || node === null) && 
                 <span>
                     <span className="tree-key">{key} : </span>
-                    <span className="type-string">{node}</span>
+                    <span className="type-string">
+                        {nodeFormat(node)}
+                    </span>
                 </span>
             }
             {
-                typeof node === "object" && 
+                isValidObject(node) && 
                 <span className={`tree-key type-array expanded collapsed`}>
                     <span>{key}</span>  
                     <span className="node-info">
-                        {
-                            (!Array.isArray(node) && `{${length}}` || Array.isArray(node) && `[${length}]`)
-                        } 
+                        { (!Array.isArray(node) && `{${length}}` || Array.isArray(node) && `[${length}]`) } 
                     </span>
                 </span>
             }
 
             {
-                typeof node === "object" && Object.entries(node).map(([key, value], index) => (
+                isValidObject(node) && Object.entries(node).map(([key, value], index) => (
                     <div key={index} className='tree-children ml-[20px]'>
                         { TreeNode(key, value) }
                     </div>

@@ -6,3 +6,18 @@ export function isValidJSON(jsonString) {
       return false;
     }
 }
+
+export function isValidObject(obj) {
+    return typeof obj === "object" && obj !== null && obj !== undefined;
+}
+
+
+export const nodeFormat = (v) => {
+    if(v == null) return String(v)
+    else if(typeof v === "string") return `"${v}"`
+    else if(typeof v === "number") return v
+    else if(typeof v === "boolean") return v.toString()
+    else if(typeof v === "undefined") return "undefined"
+    else if(typeof v === "symbol") return "symbol"
+    else if(typeof v === "bigint") return "bigint"
+}

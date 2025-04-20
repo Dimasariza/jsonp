@@ -1,11 +1,24 @@
 import { Button } from '@/components/ui/button';
 import React from 'react';
+import { toast } from "sonner"
 
 const FormatterRawjson = ({value}) => {
+    const handleCopy = () => {
+        navigator.clipboard.writeText(value);
+        toast.success("Copied to clipboard", {
+            description: "Your JSON data has been copied to your clipboard",
+            duration: 2000,
+            // action: {
+            //   label: "Undo",
+            //   onClick: () => console.log("Undo"),
+            // },
+        })
+    }
+
     return (
         <div>
             <pre className="min-h-[2rem]">{value}</pre>
-            <Button onClick={() => navigator.clipboard.writeText(value)}>Copy</Button>
+            <Button onClick={handleCopy}>Copy</Button>
         </div>
     );
 }
