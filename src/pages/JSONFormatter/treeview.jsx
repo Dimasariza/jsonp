@@ -43,11 +43,11 @@ const FormatterTreeview = ({value}) => {
     const json = isValidJSON(value);
 
     const handleCopy = () => {
-        navigator.clipboard.writeText(value);
-        toast.success("Copied to clipboard", {
-            description: "Your JSON data has been copied to your clipboard",
-            duration: 2000,
-        })
+        copyToClipboard({
+            text: value, 
+            successMessage: "Copied to clipboard", 
+            description: "Your JSON data has been copied to your clipboard"
+        });
     }
 
     return (

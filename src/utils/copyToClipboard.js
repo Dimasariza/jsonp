@@ -1,7 +1,11 @@
-export const copyToClipboard = (text, successMessage) => {
+import { toast } from "sonner";
+
+export const copyToClipboard = ({text, successMessage, description}) => {
     navigator.clipboard.writeText(text).then(() => {
-        alert(successMessage);
+        toast.success(successMessage, {
+            description: description,
+        });
     }).catch(err => {
-        alert("Copy failed");
+        toast.error("Copy failed");
     });
 }

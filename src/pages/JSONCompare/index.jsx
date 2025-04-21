@@ -1,49 +1,86 @@
-import { updateFormatterPreview } from "@/utils/updateFormatterPreview";
+import { createNewTab } from "@utils/crereteNewTab";
+import { updateFormatterPreview } from "@utils/updateFormatterPreview";
 import Jsontabs from "@components/customs/json-tabs/jsontabs";
 import { Button } from "@components/ui/button";
 import { Textarea } from "@components/ui/textarea";
+import { useGlobalState } from "@hooks/useGlobalState";
 import { useJSONCompare } from "@hooks/useJSONCompare";
-import { useState } from "react";
+import { copyToClipboard } from "@/utils/copyToClipboard";
 
 const JSONCompare = () => {
-    const [tabs, setTabs] = useJSONCompare('tabs', []);
+    const [tabs, setTabs] = useGlobalState('json-compare-tabs', [createNewTab('Tab 1', {leftJSON: "", rightJSON: ""})]); 
 
-    const [leftJSON, setLeftJSON] = useState('');
-    const [rightJSON, setRightJSON] = useState('');
+    const {
+        activeTab,
+        setActiveTab,
+        json,
+        errorJson,
+        setFormatterJSON,
+    } = useJSONCompare({tabs, setTabs});
+    
+    const handleOnChange = (value, key) => {
+        const formatter = updateFormatterPreview(value);
 
-    const handleOnBlur = (e, key) => {
-        const formatter = updateFormatterPreview(e.target.value);
+        setFormatterJSON(prev => ({...prev, json: {...prev.json, [key]: formatter.json}}));
 
-        if(key === "leftJSON") {    
-            setLeftJSON(formatter.value);
-        } else {
-            setRightJSON(formatter.value);
-        }
+        setTabs((prev) => {
+            const t = prev.find(tab => tab?.id == activeTab?.id);
+            return prev.map(tab => tab?.id == activeTab?.id ? {...tab, inputValue: {...t.inputValue, [key]: formatter.json}} : tab)
+        });
+    }
+
+    const handleCopyLeft = () => {
+        copyToClipboard({
+            text: json.leftJSON, 
+            successMessage: "Copied to clipboard", 
+            description: "Your JSON data has been copied to your clipboard"
+        });
+    }
+
+    const handleCopyRight = () => {
+        copyToClipboard({
+            text: json.rightJSON, 
+            successMessage: "Copied to clipboard", 
+            description: "Your JSON data has been copied to your clipboard"
+        });
     }
 
     return (
-        <div>
-            <Jsontabs tabs={tabs} setTabs={setTabs} />
-            <div className="flex gap-2">
-                <Textarea placeholder="Enter Left JSON" onBlur={(e) => handleOnBlur(e, "leftJSON")} onChange={(e) => setLeftJSON(e.target.value)}  value={leftJSON}/>
-                <Textarea placeholder="Enter Right JSON" onBlur={(e) => handleOnBlur(e, "rightJSON")} onChange={(e) => setRightJSON(e.target.value)} value={rightJSON}/>
-            </div>
-            <Button>Compare JSON's</Button>
+        <>
+            <Jsontabs tabs={tabs} setTabs={setTabs} setActiveTab={setActiveTab} />
+            {
+                tabs.length > 0 && (
+                    <div>
+                        <div className="flex gap-2">
+                            <Textarea 
+                                placeholder="Enter Left JSON" 
+                                onBlur={(e) => handleOnChange(e.target.value, "leftJSON")} 
+                                onChange={(e) => handleOnChange(e.target.value, "leftJSON")}  
+                                value={json?.leftJSON || ""}
+                            />
+                            <Textarea 
+                                placeholder="Enter Right JSON" 
+                                onBlur={(e) => handleOnChange(e.target.value, "rightJSON")} 
+                                onChange={(e) => handleOnChange(e.target.value, "rightJSON")} 
+                                value={json?.rightJSON || ""}
+                            />
+                        </div>
 
-            <div className="flex gap-2">
-                <Button>Copy Left</Button>
-                <Button>Copy Right</Button>
-            </div>
+                        <Button>Compare JSON's</Button>
 
-            <div className="flex gap-2">
-                <div className="left-json">
-                    left
-                </div>
-                <div className="right-json">
-                    right
-                </div>
-            </div>
-        </div>
+                        <div className="flex gap-2">
+                            <Button onClick={handleCopyLeft}>Copy Left</Button>
+                            <Button onClick={handleCopyRight}>Copy Right</Button>
+                        </div>
+
+                        <div className="flex gap-2">
+                            <pre className="min-h-[2rem]">{json?.leftJSON}</pre>
+                            <pre className="min-h-[2rem]">{json?.rightJSON}</pre>
+                        </div>
+                    </div>
+                )
+            }
+        </>
     );
 }
 

@@ -1,14 +1,15 @@
 import { Button } from '@/components/ui/button';
+import { copyToClipboard } from '@/utils/copyToClipboard';
 import React from 'react';
 import { toast } from "sonner"
 
 const FormatterRawjson = ({value}) => {
     const handleCopy = () => {
-        navigator.clipboard.writeText(value);
-        toast.success("Copied to clipboard", {
-            description: "Your JSON data has been copied to your clipboard",
-            duration: 2000,
-        })
+        copyToClipboard({
+            text: value, 
+            successMessage: "Copied to clipboard", 
+            description: "Your JSON data has been copied to your clipboard"
+        });
     }
 
     return (

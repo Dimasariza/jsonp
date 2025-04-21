@@ -1,19 +1,22 @@
-{
-    "name": "Roganda",
-    "age": null,
-    "blood": [
-      "B",
-      "C"
-    ],
+[
+  {
+    "name": "roganda",
+    "age": 25,
+    "blood": "B",
     "games": [
       "COD",
       "PB",
-      "PVZ",
-      null
-    ],
-    "test": {
-      "test1": {
-        "test": null
-      }
-    }
-}
+      "PVZ"
+    ]
+  },
+  {
+    "name": "roganda 2",
+    "age": 26,
+    "blood": "C",
+    "games": [
+      "COD 2",
+      "PB 2",
+      "PVZ 2"
+    ]
+  }
+]

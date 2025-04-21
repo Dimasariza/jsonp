@@ -3,7 +3,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/tabs';
 import { Button } from '@components/ui/button';
 import { Input } from '@components/ui/input';
 import { Textarea } from '@components/ui/textarea';
-import { useJSONCompare } from '@hooks/useJSONCompare';
 import FormatterErrors from './errors';
 import FormatterRawjson from './rawjson';
 import FormatterTreeview from './treeview';
@@ -12,31 +11,7 @@ import { downloadFormatterJSON, uploadFormatterJSON } from '@utils/JSONFileUtils
 import { useGlobalState } from '@hooks/useGlobalState';
 import { toast } from 'sonner';
 import { createNewTab } from '@/utils/crereteNewTab';
-
-/*
-[
-    {
-      "name": "roganda",
-      "age": 25,
-      "blood": "B",
-      "games": [
-        "COD",
-        "PB",
-        "PVZ"
-      ]
-    },
-    {
-      "name": "roganda 2",
-      "age": 26,
-      "blood": "C",
-      "games": [
-        "COD 2",
-        "PB 2",
-        "PVZ 2"
-      ]
-    }
-]
-*/
+import { useJSONFormatter } from '@/hooks/useJSONFormatter';
 
 const previewMenuTabs = (json = "", errorJson = "") => [
     {
@@ -68,7 +43,7 @@ const JSONFormatter = () => {
         errorJson,
         setFormatterJSON,
         previewMenu,
-    } = useJSONCompare({previewMenuTabs, tabs, setPreviewValue});
+    } = useJSONFormatter({previewMenuTabs, tabs, setPreviewValue});
 
     function setPreviewValue (value) {
         const formatter = updateFormatterPreview(value);
@@ -84,7 +59,7 @@ const JSONFormatter = () => {
     const onHandleChange = (value) => {
         setTabs((prev) => {
             const formatter = setPreviewValue(value);
-            return prev.map(tab => tab.id == activeTab.id ? {...tab, inputValue: formatter.json} : tab)
+            return prev.map(tab => tab?.id == activeTab?.id ? {...tab, inputValue: formatter.json} : tab)
         });
     }
 
