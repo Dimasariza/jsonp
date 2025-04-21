@@ -1,9 +1,15 @@
 export function isValidJSON(jsonString) {
     try {
       const result = JSON.parse(jsonString);
-      return result;
+      return {
+        isValid: true,
+        result
+      };
     } catch (e) {
-      return false;
+      return {
+        isValid: false,
+        error: e.message
+      };
     }
 }
 

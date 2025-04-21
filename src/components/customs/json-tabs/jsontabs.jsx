@@ -11,14 +11,12 @@ const Jsontabs = ({tabs = [], setTabs, setActiveTab}) => {
         e.stopPropagation();
         e.preventDefault();
         setActiveTab(tab);
-        console.log("click")
     }
 
     const handleDoubleClick = (e, index) => {
         e.stopPropagation();
         e.preventDefault();
         setOpenPopover(tabs.map((_, i) => i === index ? true : false));
-        console.log("double click")
     }
 
     return (    

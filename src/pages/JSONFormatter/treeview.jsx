@@ -2,7 +2,6 @@ import { Button } from '@components/ui/button';
 import React from 'react';
 import './treeview.css';
 import { isValidJSON, isValidObject, nodeFormat } from '@utils/jsonValidation';
-import { toast } from "sonner"
 
 const TreeNode = (key, node) => {
     const length = isValidObject(node) ? Object.keys(node).length : 0;
@@ -54,7 +53,7 @@ const FormatterTreeview = ({value}) => {
         <div className='p-3'>
             <pre className="min-h-[2rem]">
                 <div className='tree-view'>
-                    { TreeNode("", json) }
+                    { json.isValid && TreeNode("", json.result) }
                 </div>
             </pre>
             <Button onClick={handleCopy}>Copy JSON</Button>
